@@ -1,11 +1,52 @@
 import numpy as np 
 
 def solve_model(T,state):
-    X1, X2, Y = state
-    dX1 = -X1*0
-    dX2 = -X2*0
-    dY = -Y*0.1+10*(((X2/5)**3))/(1+((X1/5)**2)+((X2/5)**3)+((X1/5)**2)*((X2/5)**3))+10*(((X1/5)**2))/(1+((X1/5)**2)+((X2/5)**3)+((X1/5)**2)*((X2/5)**3))
-    return np.array([dX1, dX2, dY])
+    C, D, DFF1_DL1_notD, DFF1_DL1_notC, DFF1_DL1_DandC, DFF1_DL1_notDandC, DFF1_DL1_Q, DFF1_DL1_Q_, DFF1_D2, DFF1_C2, DFF1_DL2_notD, DFF1_DL2_notC, DFF1_DL2_DandC, DFF1_DL2_notDandC, DFF1_DL2_Q, DFF1_DL2_Q_, DFF2_DL1_notD, DFF2_DL1_notC, DFF2_DL1_DandC, DFF2_DL1_notDandC, DFF2_DL1_Q, DFF2_DL1_Q_, DFF2_D2, DFF2_C2, DFF2_DL2_notD, DFF2_DL2_notC, DFF2_DL2_DandC, DFF2_DL2_notDandC, DFF2_DL2_Q, DFF2_DL2_Q_, DFF3_DL1_notD, DFF3_DL1_notC, DFF3_DL1_DandC, DFF3_DL1_notDandC, DFF3_DL1_Q, DFF3_DL1_Q_, DFF3_D2, DFF3_C2, DFF3_DL2_notD, DFF3_DL2_notC, DFF3_DL2_DandC, DFF3_DL2_notDandC, DFF3_DL2_Q, DFF3_DL2_Q_ = state
+    dC = -C*0
+    dD = -D*0.7+40*(((DFF3_DL2_Q_/10)**4))/(1+((DFF3_DL2_Q_/10)**4))
+    dDFF1_DL1_notD = -DFF1_DL1_notD*0.7+40*(1)/(1+((D/10)**4))
+    dDFF1_DL1_notC = -DFF1_DL1_notC*0.7+40*(1)/(1+((C/10)**4))
+    dDFF1_DL1_DandC = -DFF1_DL1_DandC*0.7+40*(((C/10)**4))/(1+((DFF1_DL1_notD/10)**4)+((C/10)**4)+((DFF1_DL1_notD/10)**4)*((C/10)**4))
+    dDFF1_DL1_notDandC = -DFF1_DL1_notDandC*0.7+40*(((C/10)**4))/(1+((D/10)**4)+((C/10)**4)+((D/10)**4)*((C/10)**4))
+    dDFF1_DL1_Q = -DFF1_DL1_Q*0.7+40*(1)/(1+((DFF1_DL1_notDandC/10)**4)+((DFF1_DL1_Q_/10)**4)+((DFF1_DL1_notDandC/10)**4)*((DFF1_DL1_Q_/10)**4))
+    dDFF1_DL1_Q_ = -DFF1_DL1_Q_*0.7+40*(1)/(1+((DFF1_DL1_DandC/10)**4)+((DFF1_DL1_Q/10)**4)+((DFF1_DL1_DandC/10)**4)*((DFF1_DL1_Q/10)**4))
+    dDFF1_D2 = -DFF1_D2*0.7+40*(((DFF1_DL1_Q/10)**4))/(1+((DFF1_DL1_Q/10)**4))
+    dDFF1_C2 = -DFF1_C2*0.7+40*(((DFF1_DL1_notC/10)**4))/(1+((DFF1_DL1_notC/10)**4))
+    dDFF1_DL2_notD = -DFF1_DL2_notD*0.7+40*(1)/(1+((DFF1_D2/10)**4))
+    dDFF1_DL2_notC = -DFF1_DL2_notC*0.7+40*(1)/(1+((DFF1_C2/10)**4))
+    dDFF1_DL2_DandC = -DFF1_DL2_DandC*0.7+40*(((DFF1_C2/10)**4))/(1+((DFF1_DL2_notD/10)**4)+((DFF1_C2/10)**4)+((DFF1_DL2_notD/10)**4)*((DFF1_C2/10)**4))
+    dDFF1_DL2_notDandC = -DFF1_DL2_notDandC*0.7+40*(((DFF1_C2/10)**4))/(1+((DFF1_D2/10)**4)+((DFF1_C2/10)**4)+((DFF1_D2/10)**4)*((DFF1_C2/10)**4))
+    dDFF1_DL2_Q = -DFF1_DL2_Q*0.7+40*(1)/(1+((DFF1_DL2_notDandC/10)**4)+((DFF1_DL2_Q_/10)**4)+((DFF1_DL2_notDandC/10)**4)*((DFF1_DL2_Q_/10)**4))
+    dDFF1_DL2_Q_ = -DFF1_DL2_Q_*0.7+40*(1)/(1+((DFF1_DL2_DandC/10)**4)+((DFF1_DL2_Q/10)**4)+((DFF1_DL2_DandC/10)**4)*((DFF1_DL2_Q/10)**4))
+    dDFF2_DL1_notD = -DFF2_DL1_notD*0.7+40*(1)/(1+((DFF1_DL2_Q/10)**4))
+    dDFF2_DL1_notC = -DFF2_DL1_notC*0.7+40*(1)/(1+((C/10)**4))
+    dDFF2_DL1_DandC = -DFF2_DL1_DandC*0.7+40*(((C/10)**4))/(1+((DFF2_DL1_notD/10)**4)+((C/10)**4)+((DFF2_DL1_notD/10)**4)*((C/10)**4))
+    dDFF2_DL1_notDandC = -DFF2_DL1_notDandC*0.7+40*(((C/10)**4))/(1+((DFF1_DL2_Q/10)**4)+((C/10)**4)+((DFF1_DL2_Q/10)**4)*((C/10)**4))
+    dDFF2_DL1_Q = -DFF2_DL1_Q*0.7+40*(1)/(1+((DFF2_DL1_notDandC/10)**4)+((DFF2_DL1_Q_/10)**4)+((DFF2_DL1_notDandC/10)**4)*((DFF2_DL1_Q_/10)**4))
+    dDFF2_DL1_Q_ = -DFF2_DL1_Q_*0.7+40*(1)/(1+((DFF2_DL1_DandC/10)**4)+((DFF2_DL1_Q/10)**4)+((DFF2_DL1_DandC/10)**4)*((DFF2_DL1_Q/10)**4))
+    dDFF2_D2 = -DFF2_D2*0.7+40*(((DFF2_DL1_Q/10)**4))/(1+((DFF2_DL1_Q/10)**4))
+    dDFF2_C2 = -DFF2_C2*0.7+40*(((DFF2_DL1_notC/10)**4))/(1+((DFF2_DL1_notC/10)**4))
+    dDFF2_DL2_notD = -DFF2_DL2_notD*0.7+40*(1)/(1+((DFF2_D2/10)**4))
+    dDFF2_DL2_notC = -DFF2_DL2_notC*0.7+40*(1)/(1+((DFF2_C2/10)**4))
+    dDFF2_DL2_DandC = -DFF2_DL2_DandC*0.7+40*(((DFF2_C2/10)**4))/(1+((DFF2_DL2_notD/10)**4)+((DFF2_C2/10)**4)+((DFF2_DL2_notD/10)**4)*((DFF2_C2/10)**4))
+    dDFF2_DL2_notDandC = -DFF2_DL2_notDandC*0.7+40*(((DFF2_C2/10)**4))/(1+((DFF2_D2/10)**4)+((DFF2_C2/10)**4)+((DFF2_D2/10)**4)*((DFF2_C2/10)**4))
+    dDFF2_DL2_Q = -DFF2_DL2_Q*0.7+40*(1)/(1+((DFF2_DL2_notDandC/10)**4)+((DFF2_DL2_Q_/10)**4)+((DFF2_DL2_notDandC/10)**4)*((DFF2_DL2_Q_/10)**4))
+    dDFF2_DL2_Q_ = -DFF2_DL2_Q_*0.7+40*(1)/(1+((DFF2_DL2_DandC/10)**4)+((DFF2_DL2_Q/10)**4)+((DFF2_DL2_DandC/10)**4)*((DFF2_DL2_Q/10)**4))
+    dDFF3_DL1_notD = -DFF3_DL1_notD*0.7+40*(1)/(1+((DFF2_DL2_Q/10)**4))
+    dDFF3_DL1_notC = -DFF3_DL1_notC*0.7+40*(1)/(1+((C/10)**4))
+    dDFF3_DL1_DandC = -DFF3_DL1_DandC*0.7+40*(((C/10)**4))/(1+((DFF3_DL1_notD/10)**4)+((C/10)**4)+((DFF3_DL1_notD/10)**4)*((C/10)**4))
+    dDFF3_DL1_notDandC = -DFF3_DL1_notDandC*0.7+40*(((C/10)**4))/(1+((DFF2_DL2_Q/10)**4)+((C/10)**4)+((DFF2_DL2_Q/10)**4)*((C/10)**4))
+    dDFF3_DL1_Q = -DFF3_DL1_Q*0.7+40*(1)/(1+((DFF3_DL1_notDandC/10)**4)+((DFF3_DL1_Q_/10)**4)+((DFF3_DL1_notDandC/10)**4)*((DFF3_DL1_Q_/10)**4))
+    dDFF3_DL1_Q_ = -DFF3_DL1_Q_*0.7+40*(1)/(1+((DFF3_DL1_DandC/10)**4)+((DFF3_DL1_Q/10)**4)+((DFF3_DL1_DandC/10)**4)*((DFF3_DL1_Q/10)**4))
+    dDFF3_D2 = -DFF3_D2*0.7+40*(((DFF3_DL1_Q/10)**4))/(1+((DFF3_DL1_Q/10)**4))
+    dDFF3_C2 = -DFF3_C2*0.7+40*(((DFF3_DL1_notC/10)**4))/(1+((DFF3_DL1_notC/10)**4))
+    dDFF3_DL2_notD = -DFF3_DL2_notD*0.7+40*(1)/(1+((DFF3_D2/10)**4))
+    dDFF3_DL2_notC = -DFF3_DL2_notC*0.7+40*(1)/(1+((DFF3_C2/10)**4))
+    dDFF3_DL2_DandC = -DFF3_DL2_DandC*0.7+40*(((DFF3_C2/10)**4))/(1+((DFF3_DL2_notD/10)**4)+((DFF3_C2/10)**4)+((DFF3_DL2_notD/10)**4)*((DFF3_C2/10)**4))
+    dDFF3_DL2_notDandC = -DFF3_DL2_notDandC*0.7+40*(((DFF3_C2/10)**4))/(1+((DFF3_D2/10)**4)+((DFF3_C2/10)**4)+((DFF3_D2/10)**4)*((DFF3_C2/10)**4))
+    dDFF3_DL2_Q = -DFF3_DL2_Q*0.7+40*(1)/(1+((DFF3_DL2_notDandC/10)**4)+((DFF3_DL2_Q_/10)**4)+((DFF3_DL2_notDandC/10)**4)*((DFF3_DL2_Q_/10)**4))
+    dDFF3_DL2_Q_ = -DFF3_DL2_Q_*0.7+40*(1)/(1+((DFF3_DL2_DandC/10)**4)+((DFF3_DL2_Q/10)**4)+((DFF3_DL2_DandC/10)**4)*((DFF3_DL2_Q/10)**4))
+    return np.array([dC, dD, dDFF1_DL1_notD, dDFF1_DL1_notC, dDFF1_DL1_DandC, dDFF1_DL1_notDandC, dDFF1_DL1_Q, dDFF1_DL1_Q_, dDFF1_D2, dDFF1_C2, dDFF1_DL2_notD, dDFF1_DL2_notC, dDFF1_DL2_DandC, dDFF1_DL2_notDandC, dDFF1_DL2_Q, dDFF1_DL2_Q_, dDFF2_DL1_notD, dDFF2_DL1_notC, dDFF2_DL1_DandC, dDFF2_DL1_notDandC, dDFF2_DL1_Q, dDFF2_DL1_Q_, dDFF2_D2, dDFF2_C2, dDFF2_DL2_notD, dDFF2_DL2_notC, dDFF2_DL2_DandC, dDFF2_DL2_notDandC, dDFF2_DL2_Q, dDFF2_DL2_Q_, dDFF3_DL1_notD, dDFF3_DL1_notC, dDFF3_DL1_DandC, dDFF3_DL1_notDandC, dDFF3_DL1_Q, dDFF3_DL1_Q_, dDFF3_D2, dDFF3_C2, dDFF3_DL2_notD, dDFF3_DL2_notC, dDFF3_DL2_DandC, dDFF3_DL2_notDandC, dDFF3_DL2_Q, dDFF3_DL2_Q_])
 
 def solve_model_steady(state):
     return solve_model(0, state)
